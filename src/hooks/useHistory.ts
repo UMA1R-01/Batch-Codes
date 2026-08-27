@@ -96,7 +96,7 @@ export function useHistory() {
 
 /** Monotonic LOT number, so every batch this device produces has a stable label. */
 export function nextLotNumber(): number {
-  const current = Number(readJson(StorageKey.lotCounter, (raw) => (Number.isFinite(raw) ? Number(raw) : null), 147));
+  const current = Number(readJson(StorageKey.lotCounter, (raw) => (Number.isFinite(raw) ? Number(raw) : null), 0));
   const next = current + 1;
   try {
     writeJson(StorageKey.lotCounter, next);

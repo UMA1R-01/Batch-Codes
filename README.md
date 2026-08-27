@@ -10,6 +10,12 @@ Batch Codes generates coupon codes, serial numbers, and license keys in bulk, as
 
 ![Batch Codes](docs/hero.png)
 
+## Try it
+
+**[Open the web app →](https://batchcodes.vercel.app)**
+
+No install, nothing leaves your browser. For the native desktop build, see below.
+
 ## Download
 
 **[Download the latest Windows installer →](https://github.com/UMA1R-01/Batch-Codes/releases/latest)**

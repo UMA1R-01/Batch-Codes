@@ -1,0 +1,191 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────────────────────
+   Design tokens — "Stencil" direction.
+   Tailwind v4 reads these and generates the matching utilities,
+   e.g. --color-orange becomes bg-orange / text-orange / border-orange.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --color-concrete: #e4e2dd;
+  --color-concrete-lo: #d3d0c9;
+  --color-concrete-hi: #f2f1ed;
+  --color-ink: #141414;
+  --color-ink-lift: #2a2a28;
+  --color-ink-line: #3a3a38;
+  --color-orange: #ff4a00;
+  --color-yellow: #ffd400;
+  --color-soft: #7a776f;
+  --color-hair: #b8b5ad;
+  --color-faint: #a8a49b;
+
+  --font-display: 'Big Shoulders Display', Impact, sans-serif;
+  --font-body: 'Public Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Chivo Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --radius-none: 0px;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-concrete);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* This design is a committed single look — never auto-invert it. */
+  :root {
+    color-scheme: light;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+
+  /* Number inputs: hide the native steppers, the app supplies its own affordances */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* ══ signature 1: hazard rule ══ */
+  .hazard-rule {
+    height: 9px;
+    background: repeating-linear-gradient(
+      135deg,
+      var(--color-yellow) 0 14px,
+      var(--color-ink) 14px 28px
+    );
+  }
+
+  /* ══ signature 2: stencil bridge cut through the wordmark ══
+     em-based so it stays proportional as the wordmark scales down */
+  .stencil-bridge {
+    position: relative;
+  }
+  .stencil-bridge::after {
+    content: '';
+    position: absolute;
+    left: -0.12em;
+    right: -0.12em;
+    top: 46%;
+    height: 0.095em;
+    background: var(--color-ink);
+    pointer-events: none;
+  }
+
+  /* ══ signature 4: asset-tag corner ticks ══ */
+  .corner-ticks::before,
+  .corner-ticks::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: var(--color-ink);
+    pointer-events: none;
+  }
+  .corner-ticks::before {
+    left: 0;
+    top: 0;
+  }
+  .corner-ticks::after {
+    right: 0;
+    bottom: 0;
+  }
+
+  /* eyebrow label above every field group */
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-soft);
+  }
+
+  /* Overlay + panel motion, driven by Radix's data-state attribute.
+     Written here rather than pulling in an animation plugin. The modal uses
+     opacity only — it is centred with a transform that an animation must not
+     clobber. */
+  .anim-overlay[data-state='open'] {
+    animation: bc-fade-in 160ms ease-out;
+  }
+  .anim-overlay[data-state='closed'] {
+    animation: bc-fade-out 140ms ease-in;
+  }
+  .anim-modal[data-state='open'] {
+    animation: bc-fade-in 160ms ease-out;
+  }
+  .anim-modal[data-state='closed'] {
+    animation: bc-fade-out 140ms ease-in;
+  }
+  .anim-drawer[data-state='open'] {
+    animation: bc-slide-in 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .anim-drawer[data-state='closed'] {
+    animation: bc-slide-out 180ms ease-in;
+  }
+}
+
+@keyframes bc-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes bc-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes bc-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes bc-slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

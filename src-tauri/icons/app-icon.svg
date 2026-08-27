@@ -1,0 +1,12 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="0,0 1024,0 0,1024" fill="#FF4A00"/>
+  <polygon points="1024,0 1024,1024 0,1024" fill="#141414"/>
+
+  <!-- "#" mark, built from bars so it renders identically everywhere -->
+  <g fill="#F2F1ED">
+    <rect x="336" y="210" width="116" height="604"/>
+    <rect x="572" y="210" width="116" height="604"/>
+    <rect x="210" y="336" width="604" height="116"/>
+    <rect x="210" y="572" width="604" height="116"/>
+  </g>
+</svg>
